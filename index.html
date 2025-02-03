@@ -39,20 +39,23 @@
                 document.getElementById('comments').innerHTML = '<p>No comments found.</p>';
                 return;
             }
-
+        
             const apiUrl = `https://m.otter.homes/api/v1/statuses/${tootId}/context`;
             try {
                 const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
                 const data = await response.json();
-                const comments = data.descendants;
-
-                if (comments.length === 0) {
+        
+                // Check if the `descendants` array exists and is not empty
+                if (!data.descendants || data.descendants.length === 0) {
                     document.getElementById('comments').innerHTML = '<p>No comments found.</p>';
                     return;
                 }
-
+        
                 let commentsHtml = '';
-                comments.forEach(comment => {
+                data.descendants.forEach(comment => {
                     commentsHtml += `
                         <div class="comment">
                             <div class="comment-author">${comment.account.display_name} (@${comment.account.username})</div>
@@ -60,13 +63,14 @@
                         </div>
                     `;
                 });
-
+        
                 document.getElementById('comments').innerHTML = commentsHtml;
             } catch (error) {
                 console.error('Error fetching comments:', error);
-                document.getElementById('comments').innerHTML = '<p>Error loading comments.</p>';
+                document.getElementById('comments').innerHTML = `<p>Error loading comments. Details: ${error.message}</p>`;
             }
         }
+
 
         // Fetch comments when the page loads
         fetchComments();
