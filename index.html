@@ -6,24 +6,53 @@
     <title>Comments</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         .comment {
-            border-bottom: 1px solid #ccc;
-            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        .comment:last-child {
+            border-bottom: none;
         }
         .comment-author {
             font-weight: bold;
+            color: #2c3e50;
         }
         .comment-content {
             margin-top: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+        .comment-content a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .comment-content a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+    <div class="container">
     <h1>Comments</h1>
-    <div id="comments"></div>
+    <div id="comments">
+        <p>Loading comments...</p>
+    </div>
+    </div>
 
     <script>
         // Function to get the query parameter from the URL
@@ -50,7 +79,7 @@
         
                 // Check if the `descendants` array exists and is not empty
                 if (!data.descendants || data.descendants.length === 0) {
-                    document.getElementById('comments').innerHTML = '<p>No comments found.</p>';
+                    document.getElementById('comments').innerHTML = '<p>No comments found. Be the first to comment!</p>';
                     return;
                 }
         
