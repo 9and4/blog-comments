@@ -1,0 +1,208 @@
+:root {
+    --width: 820px;
+    --font-main: "IM Fell English", "KaiTi", "Kaiti SC", "STKaiti", "Comic Sans MS", source-han-serif-tc, ui-serif, system-ui, serif;
+    --font-secondary: "Roboto Slab", "Noto Sans SC", "Noto Sans TC", "Noto Sans", ui-sans-serif, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --font-code: ui-monospace, "Cascadia Mono", "Segoe UI Mono", "Liberation Mono", Menlo, Monaco, Consolas, "Noto Sans TC", "Noto Sans SC", monospace;
+    --font-scale: 1.13em;
+    --letter-spacing: 0.05em;
+    --background-color: #f1f1f1;
+    --heading-color: #000000;
+    --text-color: #404040;
+    --link-color: #404040;
+    --link-border: #9f7544;
+    --btn-border: #d3c6b7;
+    --link-background: #e2dbd3;
+    --visited-color: #9f7544;
+    --code-background-color: #ffffff;
+    --code-color: #666666;
+    --comment-bg: #fff;
+    --comment-border: #e0e0e0;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #08192d;
+        --heading-color: #ffffff;
+        --text-color: #e1e1e1;
+        --link-color: #e1e1e1;
+        --link-border: #c09662;
+    --btn-border: #9f7544;
+    --link-background: #725536;
+        --visited-color: #c09662;
+        --code-background-color: #000;
+        --code-color: #bbbbbb;
+        --comment-bg: #1a2c47;
+        --comment-border: #333333;
+    }
+}
+
+/* General Styles */
+body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+}
+
+a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+    border-radius: 3px;
+}
+
+a:hover {
+    text-decoration: none;
+    box-shadow: 0 0 0 3px var(--link-border);
+}
+
+/* Container */
+.container {
+    max-width: var(--width);
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--background-color);
+}
+
+/* Buttons */
+.button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 10px 5px;
+    border-radius: 5px;
+    background-color: var(--link-background);
+    color: var(--link-color);
+    font-family: var(--font-main);
+    font-size: 0.9em;
+    text-align: center;
+    transition: 0.2s;
+    border: 1px solid var(--btn-border);
+}
+
+.button:hover {
+    background-color: var(--link-border);
+    color: var(--background-color);
+    border: 1px solid var(--link-border);
+}
+
+/* Instructions Section */
+.instructions {
+    margin: 20px 0;
+    font-family: var(--font-secondary);
+    color: var(--text-color);
+}
+
+.instructions p {
+    padding: 5px;
+    margin: 5px 0;
+    color: var(--text-color);
+}
+
+.instructions hr {
+    border: none;
+    border-top: 1px solid var(--link-border); /* Line color */
+    margin: 10px 0; /* Spacing around the line */
+}
+
+/* Collapsible Guideline */
+.guideline {
+    margin-top: 10px;
+}
+
+.guideline-header {
+    padding: 5px;
+    cursor: pointer;
+    color: var(--heading-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.guideline-header:hover {
+    text-decoration: underline;
+}
+
+.guideline-content {
+    display: none;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+.guideline-content p {
+    margin: 5px 0;
+}
+
+.guideline-icon {
+    font-size: 1.2em;
+}
+
+/* Comments Section */
+.comment {
+    background-color: var(--comment-bg);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    position: relative;
+    font-family: var(--font-secondary);
+}
+
+.comment-author {
+    font-weight: bold;
+    color: var(--heading-color);
+    font-family: var(--font-main);
+    margin-bottom: 5px;
+}
+
+.comment-content {
+    line-height: 1.6;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+/* Back-to-Top Button */
+#back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: var(--link-background);
+    color: var(--link-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#back-to-top:hover {
+    background-color: var(--link-border);
+    color: var(--background-color);
+}
+
+/* Back-to-Blog Link */
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--link-color);
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.back-link:hover {
+    text-decoration: none;
+    box-shadow: 0 0 0 3px var(--link-border);
+}
+
