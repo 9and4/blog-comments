@@ -3,106 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comments</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        .comment {
-            border-bottom: 1px solid #eee;
-            padding: 15px 0;
-        }
-        .comment:last-child {
-            border-bottom: none;
-        }
-        .comment-author {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .comment-content {
-            margin-top: 5px;
-            font-size: 14px;
-            color: #555;
-        }
-        .comment-content a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        .comment-content a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>留言區</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="bearblog-comments-mastodon.js"></script>
 </head>
+
 <body>
     <div class="container">
-    <h1>Comments</h1>
+    <!-- Back to Blog Link -->
+    <a href="https://wulia.bearblog.dev/" class="back-link">← Back to Blog</a>
+
+    <h1>留言區·Comments</h1>
+
+    <div>
+        <!-- Reply on Mastodon -->
+        <a id="mastodon-reply-button" class="button" target="_blank">🐘 Reply on Mastodon</a>
+        <!-- Reply via Email -->
+        <a id="email-reply-button" class="button">💌 Reply via Email</a>
+    </div>
+
+    <div class="instructions">
+        <hr>
+        <p>如果您在 Fediverse 平台（如 Mastodon 和 Misskey 等）擁有帳戶，歡迎透過回覆 <a id="mastodon-thread-link" target="_blank" style="text-decoration: underline; ">此條串文</a> 寫下對這篇博文的想法。您的留言將會被同步至本頁面。</p>
+        <p>You can use your Mastodon account to comment on this post by replying to 
+            <a id="mastodon-thread-link" target="_blank" style="text-decoration: underline; ">this thread</a>.</p>
+        <!-- Collapsible Guideline -->
+        <hr>
+        <div class="guideline">
+            <div class="guideline-header" onclick="toggleGuideline()">
+                <span>為什麼我在這裡看不到任何留言？ Why can't I see any comments here?</span>
+                <span class="guideline-icon">+</span>
+            </div>
+            <div class="guideline-content">
+                <p>原因1：可能還沒有人給這篇博文寫留言。</p>
+                <p>原因2：這裡只會顯示來自 Fediverse 的公開留言。如果嘟文隱私設定是「僅限跟隨者」或「指定使用者」，您將無法在本頁面上看到它。</p>
+                <p>（以 Mastodon 爲例，所謂「公開評論」是指，發表留言時，嘟文隱私設定爲「公共（Mastodon 内外的任何人）」或「半公開（較少用演算法推薦）」的嘟文。）</p>
+                <p>It could be that nobody has responded to the blog post yet.</p>
+                <p>Another possibility is that only public comments from Mastodon and Fediverse will show up here. (e.g. when posting a comment on Mastodon, make sure to choose "public" or "quiet public" to have it show up.) If a comment is meant for "followers" or just for a specific person, you won't be able to see it.</p>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <!-- Comments Section -->
     <div id="comments">
         <p>Loading comments...</p>
     </div>
-    </div>
 
-    <script>
-        // Function to get the query parameter from the URL
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
-        // Function to fetch and display comments
-        async function fetchComments() {
-            const tootId = getQueryParam('toot_id');
-            if (!tootId) {
-                document.getElementById('comments').innerHTML = '<p>No comments found.</p>';
-                return;
-            }
-        
-            const apiUrl = `https://m.otter.homes/api/v1/statuses/${tootId}/context`;
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                const data = await response.json();
-        
-                // Check if the `descendants` array exists and is not empty
-                if (!data.descendants || data.descendants.length === 0) {
-                    document.getElementById('comments').innerHTML = '<p>No comments found. Be the first to comment!</p>';
-                    return;
-                }
-        
-                let commentsHtml = '';
-                data.descendants.forEach(comment => {
-                    commentsHtml += `
-                        <div class="comment">
-                            <div class="comment-author">${comment.account.display_name} (@${comment.account.username})</div>
-                            <div class="comment-content">${comment.content}</div>
-                        </div>
-                    `;
-                });
-        
-                document.getElementById('comments').innerHTML = commentsHtml;
-            } catch (error) {
-                console.error('Error fetching comments:', error);
-                document.getElementById('comments').innerHTML = `<p>Error loading comments. Details: ${error.message}</p>`;
-            }
-        }
+     <!-- Back-to-Top Button -->
+     <div id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Back to Top</div>
 
 
-        // Fetch comments when the page loads
-        fetchComments();
-    </script>
 </body>
 </html>
+
+
