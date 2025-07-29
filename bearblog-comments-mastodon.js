@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const mastodonReplyUrl = `https://m.otter.homes/@ming/${tootId}`;
             document.getElementById('mastodon-reply-button').href = mastodonReplyUrl;
             document.getElementById('mastodon-thread-link').href = mastodonReplyUrl;
+            document.getElementById('mastodon-thread-link-en').href = mastodonReplyUrl;
         }
 
         // Update Email Reply Button
